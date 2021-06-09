@@ -8,8 +8,10 @@ export default function App() {
 
   // Function to get API data from python server
   const getApi = () => {
+
     // Py server running on local host 5000
     const API = 'http://127.0.0.1:5000/';
+
     // HTTP request to PY server
     fetch(API)
       .then((response) => {
@@ -20,6 +22,7 @@ export default function App() {
         console.log(data);
         setApiData(data);
       });
+
   }
 
   // On page load fire function getApi 
@@ -30,28 +33,38 @@ export default function App() {
   return (
     <div>
       <h2>Pet Hotel</h2>
-      {JSON.stringify(apiData)}
-      <table>
-        {/* Table Header */}
-        <tr>
-          <th>Owner</th>
-          <th>Pet</th>
-          <th>Breed</th>
-          <th>Color</th>
-          <th>Check in?</th>
-          <th>Actions</th>
-        </tr>
-        {/* Table Rows */}
-        {apiData.map(pet => (
-          <tr key={pet[0]}>
-            <td>Owner Name!</td>
-            <td>{pet[2]}</td>
-            <td>{pet[3]}</td>
-            <td>{pet[4]}</td>
-            <td>{pet[5]}</td>
-          </tr>
-        ))}
-      </table>
+
+      <div align="center">
+        <table>
+
+          {/* Table Header */}
+          <thead>
+            <tr>
+              <th>Owner</th>
+              <th>Pet</th>
+              <th>Breed</th>
+              <th>Color</th>
+              <th>Check in?</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+
+          {/* Table Rows */}
+          <tbody>
+            {apiData.map(pet => (
+              <tr key={pet.pet_id}>
+                <td>{pet.owner_name}</td>
+                <td>{pet.name}</td>
+                <td>{pet.breed}</td>
+                <td>{pet.color}</td>
+                <td>{pet.checked_in}</td>
+                <td><button>Check In</button> <button>Remove</button></td>
+              </tr>
+            ))}
+          </tbody>
+
+        </table>
+      </div>
     </div>
   )
 }
