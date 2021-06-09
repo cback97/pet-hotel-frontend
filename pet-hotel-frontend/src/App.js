@@ -31,6 +31,27 @@ export default function App() {
     <div>
       <h2>Pet Hotel</h2>
       {JSON.stringify(apiData)}
+      <table>
+        {/* Table Header */}
+        <tr>
+          <th>Owner</th>
+          <th>Pet</th>
+          <th>Breed</th>
+          <th>Color</th>
+          <th>Check in?</th>
+          <th>Actions</th>
+        </tr>
+        {/* Table Rows */}
+        {apiData.map(pet => (
+          <tr key={pet[0]}>
+            <td>Owner Name!</td>
+            <td>{pet[2]}</td>
+            <td>{pet[3]}</td>
+            <td>{pet[4]}</td>
+            <td>{pet[5]}</td>
+          </tr>
+        ))}
+      </table>
     </div>
   )
 }
