@@ -1,27 +1,25 @@
 import './App.css';
 import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 export default function App() {
 
   // Hook holds API data from python server
-  const [apiData, setApiData] = useState([]);
+  const [pets, setPets] = useState([]);
 
   // Function to get API data from python server
   const getApi = () => {
 
-    // Py server running on local host 5000
-    const API = 'http://127.0.0.1:5000/';
-
     // HTTP request to PY server
-    fetch(API)
+    axios.get('/api/pets')
       .then((response) => {
         console.log(response);
-        return response.json();
+        setPets(response.data)
       })
-      .then((data) => {
-        console.log(data);
-        setApiData(data);
-      });
+      .catch(err => {
+        console.log(err);
+      })
+
   }
 
   // On page load fire function getApi 
@@ -34,6 +32,7 @@ export default function App() {
       <h2>Pet Hotel</h2>
 
       <div align="center">
+        <h2>History</h2>
         <table>
 
           {/* Table Header */}
@@ -50,13 +49,13 @@ export default function App() {
 
           {/* Table Rows */}
           <tbody>
-            {apiData.map(pet => (
-              <tr key={pet.pet_id}>
-                <td>{pet.owner_name}</td>
+            {pets.map(pet => (
+              <tr key={pet.id}>
                 <td>{pet.name}</td>
+                <td>{pet.pet_name}</td>
                 <td>{pet.breed}</td>
                 <td>{pet.color}</td>
-                <td>{pet.checked_in}</td>
+                <td>{String(pet.checked_in)}</td>
                 <td><button>Check In</button> <button>Remove</button></td>
               </tr>
             ))}
