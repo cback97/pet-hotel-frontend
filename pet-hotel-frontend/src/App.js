@@ -22,6 +22,16 @@ export default function App() {
 
   }
 
+  const handleCheckIn = (id) => {
+    console.log(id);
+  }
+
+  const handleDeletePet = (id) => {
+    console.log(id);
+    axios.post(`/api/delete/${id}`)
+      .then(() => getApi())
+  }
+
   // On page load fire function getApi 
   useEffect(() => {
     getApi();
@@ -56,7 +66,7 @@ export default function App() {
                 <td>{pet.breed}</td>
                 <td>{pet.color}</td>
                 <td>{String(pet.checked_in)}</td>
-                <td><button>Check In</button> <button>Remove</button></td>
+                <td><button onClick={() => handleCheckIn(pet.id)}>Check In</button> <button onClick={() => handleDeletePet(pet.id)}>Remove</button></td>
               </tr>
             ))}
           </tbody>
