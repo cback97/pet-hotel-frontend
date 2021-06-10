@@ -8,8 +8,10 @@ export default function App() {
 
   // Function to get API data from python server
   const getApi = () => {
+
     // Py server running on local host 5000
     const API = 'http://127.0.0.1:5000/';
+
     // HTTP request to PY server
     fetch(API)
       .then((response) => {
@@ -30,18 +32,38 @@ export default function App() {
   return (
     <div>
       <h2>Pet Hotel</h2>
-      {JSON.stringify(apiData)}
-      <table style="width:100%">
-        <tr>
 
-          <th>Owner</th>
-          <th>Pet</th>
-          <th>Breed</th>
-          <th>Color</th>
-          <th>Check in?</th>
-          <
-        </tr>
-      </table>
+      <div align="center">
+        <table>
+
+          {/* Table Header */}
+          <thead>
+            <tr>
+              <th>Owner</th>
+              <th>Pet</th>
+              <th>Breed</th>
+              <th>Color</th>
+              <th>Check in?</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+
+          {/* Table Rows */}
+          <tbody>
+            {apiData.map(pet => (
+              <tr key={pet.pet_id}>
+                <td>{pet.owner_name}</td>
+                <td>{pet.name}</td>
+                <td>{pet.breed}</td>
+                <td>{pet.color}</td>
+                <td>{pet.checked_in}</td>
+                <td><button>Check In</button> <button>Remove</button></td>
+              </tr>
+            ))}
+          </tbody>
+
+        </table>
+      </div>
     </div>
   )
 }
